@@ -33,6 +33,24 @@ void loop() {
 }
 
 /*
+ * A 4.5-9V 130 size hobby DC motor powers the eletric car.
+ * @params
+ * @returns
+ */
+void carMotor() {
+  
+}
+
+/*
+ * A SG90 micro servo will open the garage door.
+ * @params
+ * @returns
+ */
+void garageDoor() {
+  
+}
+
+/*
  * A line sensor will trigger when there isnt enough light turning on the headlights of the car.
  * @params
  * @returns
