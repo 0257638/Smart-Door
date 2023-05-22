@@ -24,6 +24,10 @@ void setup() {
     while (1)
       ;
   }
+  // Real Time Clock (RTC)
+  rtc.begin(DateTime(F(__DATE__), F(__TIME__)));
+  Serial.println("initialization done.");
+ logEvent("System Initialisation...");
 }
 
 void loop() {
@@ -51,8 +55,28 @@ void garageDoor() {
 }
 
 /*
- * A line sensor will trigger when there isnt enough light turning on the headlights of the car.
+ * A SD card stores how much charge was used on the last trip.
  * @params
  * @returns
  */
-void lightSensor() {
+void checkCharge() {
+  
+}
+
+/*
+ * A TCRT5000 line sensor will trigger when there isnt enough light turning on the headlights of the car.
+ * @params
+ * @returns
+ */
+void lightSensor() {  
+  
+}
+
+/*
+ * A RV24AF-10-40R1-B10K potentiometer controls the speed of the DC motor.
+ * @params
+ * @returns
+ */
+void speedControl() {  
+  
+}
