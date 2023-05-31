@@ -37,7 +37,7 @@ void loop() {
 }
 
 /*
- * A 4.5-9V 130 size hobby DC motor powers the eletric car.
+ * A 4.5-9V 130 size hobby DC Motor powers the eletric car.
  * @params
  * @returns
  */
@@ -46,7 +46,7 @@ void carMotor() {
 }
 
 /*
- * A SG90 micro servo will open the garage door.
+ * A SG90 Micro Servo will open the garage door.
  * @params
  * @returns
  */
@@ -55,7 +55,7 @@ void garageDoor() {
 }
 
 /*
- * A SD card stores how much charge was used on the last trip.
+ * A Micro SD card stores how much charge was used on the last trip.
  * @params
  * @returns
  */
@@ -78,5 +78,41 @@ void lightSensor() {
  * @returns
  */
 void speedControl() {  
+  
+}
+
+/*
+ * A HYDZ Piezo buzzer will trigger when the car is 30 cm away from a wall.
+ * @params
+ * @returns
+ */
+void breakAlarm() {  
+  
+}
+
+/*
+ * A Neo 6m GPS will trigger the SG90 Micro Servo to open the garage door
+ * @params
+ * @returns
+ */
+void garageTrigger() {  
+  
+}
+
+/*
+ * A DC 3v Yl-99 crash switch will trigger the servo to close the garage door.
+ * @params
+ * @returns
+ */
+void carshSwitch() {  
+  
+}  
+
+/*
+ * A traffic light shows how much charge is left in the car.
+ * @params
+ * @returns
+ */
+void LightSystem() {  
   
 }
