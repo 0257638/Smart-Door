@@ -1,3 +1,7 @@
+#define ledGreen A2
+#define ledYellow A1
+#define ledRed A0
+
 // SD Card Module
 #include <SPI.h>
 #include <SD.h>
@@ -34,15 +38,41 @@ void loop() {
   // put your main code here, to run repeatedly:
   
   delay(200);
+}  
+
+/*
+ * A traffic light shows how much charge is left in the car.
+ * @params: none
+ * @returns: void
+ */
+void LightSystem() {  
+  digitalWrite(ledRed, HIGH);
+  delay(200);
+  digitalWrite(ledRed, LOW);
+  delay(500);
+  digitalWrite(ledYellow, HIGH);
+  delay(200);
+  digitalWrite(ledYellow, LOW);
+  delay(500);
+  digitalWrite(ledGreen, HIGH);
+  delay(200);
+  digitalWrite(ledGreen, LOW);
+  delay(500);
 }
 
 /*
  * A 4.5-9V 130 size hobby DC Motor powers the eletric car.
- * @params
- * @returns
+ * @params: none
+ * @returns: void
  */
 void carMotor() {
-  
+ /* motor.forward();
+  delay(1000);
+  motor.stop();
+  delay(1000);
+  motor.backward();
+  delay(1000);
+ */
 }
 
 /*
@@ -51,7 +81,8 @@ void carMotor() {
  * @returns
  */
 void garageDoor() {
-  
+  int servoPos = 100;
+ // myservo.write(servoPos);
 }
 
 /*
@@ -60,7 +91,7 @@ void garageDoor() {
  * @returns
  */
 void checkCharge() {
-  
+    logEvent("");
 }
 
 /*
@@ -105,14 +136,5 @@ void garageTrigger() {
  * @returns
  */
 void carshSwitch() {  
-  
-}  
-
-/*
- * A traffic light shows how much charge is left in the car.
- * @params
- * @returns
- */
-void LightSystem() {  
   
 }
