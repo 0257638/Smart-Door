@@ -32,11 +32,18 @@ void setup() {
   rtc.begin(DateTime(F(__DATE__), F(__TIME__)));
   Serial.println("initialization done.");
  logEvent("System Initialisation...");
+
+    
+  pinMode(ledRed, OUTPUT);
+  pinMode(ledYellow, OUTPUT);
+  pinMode(ledGreen, OUTPUT);
+
+  LightSystem();
+
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  
   delay(200);
 }  
 
@@ -47,17 +54,17 @@ void loop() {
  */
 void LightSystem() {  
   digitalWrite(ledRed, HIGH);
-  delay(200);
+  delay(10000);
   digitalWrite(ledRed, LOW);
-  delay(500);
+  delay(50);
   digitalWrite(ledYellow, HIGH);
-  delay(200);
+  delay(5000);
   digitalWrite(ledYellow, LOW);
-  delay(500);
+  delay(50);
   digitalWrite(ledGreen, HIGH);
-  delay(200);
-  digitalWrite(ledGreen, LOW);
-  delay(500);
+  delay(1000);
+//  digitalWrite(ledGreen, LOW);
+  delay(50);
 }
 
 /*
