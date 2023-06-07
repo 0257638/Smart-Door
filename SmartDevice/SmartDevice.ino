@@ -1,10 +1,14 @@
 #define ledGreen A2
 #define ledYellow A1
 #define ledRed A0
+#define crashSensor 7
+#define servoPin 9
 
 // SD Card Module
 #include <SPI.h>
 #include <SD.h>
+
+#include <Servo.h>
 
 // Real Time Clock (RTC)
 #include "RTClib.h"
@@ -13,6 +17,8 @@ DateTime rightNow;  // used to store the current time.
 
 // SD Card - Confirm Pin
 #define SDpin 10
+
+Servo myservo;
 
 void setup() {
   // put your setup code here, to run once:
@@ -40,11 +46,13 @@ void setup() {
 
   LightSystem();
 
+  myservo.attach(servoPin);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   delay(200);
+  garageDoor();
 }  
 
 /*
@@ -54,17 +62,14 @@ void loop() {
  */
 void LightSystem() {  
   digitalWrite(ledRed, HIGH);
-  delay(10000);
+  delay(60000);
   digitalWrite(ledRed, LOW);
   delay(50);
   digitalWrite(ledYellow, HIGH);
-  delay(5000);
+  delay(30000);
   digitalWrite(ledYellow, LOW);
   delay(50);
   digitalWrite(ledGreen, HIGH);
-  delay(1000);
-//  digitalWrite(ledGreen, LOW);
-  delay(50);
 }
 
 /*
@@ -73,13 +78,7 @@ void LightSystem() {
  * @returns: void
  */
 void carMotor() {
- /* motor.forward();
-  delay(1000);
-  motor.stop();
-  delay(1000);
-  motor.backward();
-  delay(1000);
- */
+ 
 }
 
 /*
@@ -90,6 +89,13 @@ void carMotor() {
 void garageDoor() {
   int servoPos = 100;
  // myservo.write(servoPos);
+  if (digitalRead(crashSensor) == 0) {
+    // if button pressed
+    myservo.write(180); 
+    } else {
+    //button not pressed
+    myservo.write(0);
+  }
 }
 
 /*
