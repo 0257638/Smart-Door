@@ -28,7 +28,7 @@ void setup() {
   }
 
   // SD Card initialisation
-  Serial.print("Initializing SD card...");
+ /* Serial.print("Initializing SD card...");
   if (!SD.begin(SDpin)) {
     Serial.println("initialization failed!");
     while (1)
@@ -37,8 +37,8 @@ void setup() {
   // Real Time Clock (RTC)
   rtc.begin(DateTime(F(__DATE__), F(__TIME__)));
   Serial.println("initialization done.");
- logEvent("System Initialisation...");
-
+  logEvent("System Initialisation...");
+*/
     
   pinMode(ledRed, OUTPUT);
   pinMode(ledYellow, OUTPUT);
@@ -62,11 +62,11 @@ void loop() {
  */
 void LightSystem() {  
   digitalWrite(ledRed, HIGH);
-  delay(60000);
+  delay(1000);
   digitalWrite(ledRed, LOW);
   delay(50);
   digitalWrite(ledYellow, HIGH);
-  delay(30000);
+  delay(1000);
   digitalWrite(ledYellow, LOW);
   delay(50);
   digitalWrite(ledGreen, HIGH);
@@ -93,7 +93,8 @@ void garageDoor() {
     // if button pressed
     myservo.write(180); 
     } else {
-    //button not pressed
+    //button not pressed for 5 seconds
+    delay(5000);
     myservo.write(0);
   }
 }
@@ -104,7 +105,7 @@ void garageDoor() {
  * @returns
  */
 void checkCharge() {
-    logEvent("");
+//    logEvent("");
 }
 
 /*

@@ -1,7 +1,8 @@
-void logEvent(String dataToLog) {
+/*void logEvent(String dataToLog) {
   /*
      Log entries to a file on an SD card.
   */
+  /*
   // Get the updated/current time
   DateTime rightNow = rtc.now();
 
@@ -11,7 +12,7 @@ void logEvent(String dataToLog) {
     Serial.print("Couldn't create log file");
     abort();
   }
-
+/*
   // Log the event with the date, time and data
   logFile.print(rightNow.year(), DEC);
   logFile.print(",");
@@ -45,3 +46,4 @@ void logEvent(String dataToLog) {
   Serial.print(",");
   Serial.println(dataToLog);
 }
+*/
