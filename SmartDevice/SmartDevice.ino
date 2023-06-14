@@ -3,6 +3,10 @@
 #define ledRed A0
 #define crashSensor 7
 #define servoPin 9
+#define trigPin 2
+#define echoPin A4
+#define buzzerPin 8
+
 
 // SD Card Module
 #include <SPI.h>
@@ -25,6 +29,11 @@ void setup() {
   Serial.begin(9600);  // Open serial communications and wait for port to open:
   while (!Serial) {
     delay(1);  // wait for serial port to connect. Needed for native USB port only
+
+     Serial.begin (9600);         // initialize serial port
+  pinMode(trigPin, OUTPUT);   // set arduino pin to output mode
+  pinMode(echoPin, INPUT);    // set arduino pin to input mode
+  pinMode(buzzerPin, OUTPUT); // set arduino pin to output mode
   }
 
   // SD Card initialisation
@@ -44,7 +53,7 @@ void setup() {
   pinMode(ledYellow, OUTPUT);
   pinMode(ledGreen, OUTPUT);
 
-  LightSystem();
+  lightSystem();
 
   myservo.attach(servoPin);
 }
@@ -52,7 +61,16 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   delay(200);
+
+int ldrValue = analogRead(0);
+  if (ldrValue < 512) {
+   digitalWrite(8, HIGH);
+  } else {
+  digitalWrite(8, LOW);
+}
+  
   garageDoor();
+  breakAlarm();
 }  
 
 /*
@@ -60,7 +78,7 @@ void loop() {
  * @params: none
  * @returns: void
  */
-void LightSystem() {  
+void lightSystem() {  
   digitalWrite(ledRed, HIGH);
   delay(1000);
   digitalWrite(ledRed, LOW);
@@ -73,27 +91,17 @@ void LightSystem() {
 }
 
 /*
- * A 4.5-9V 130 size hobby DC Motor powers the eletric car.
- * @params: none
- * @returns: void
- */
-void carMotor() {
- 
-}
-
-/*
- * A SG90 Micro Servo will open the garage door.
+ * A DC 3v Yl-99 crash switch will trigger the SG90 Micro servo to close the garage door.
  * @params
  * @returns
  */
 void garageDoor() {
   int servoPos = 100;
- // myservo.write(servoPos);
   if (digitalRead(crashSensor) == 0) {
-    // if button pressed
+    // if button pressed open garage door
     myservo.write(180); 
     } else {
-    //button not pressed for 5 seconds
+    // if button is not pressed for 5 seconds close garage door
     delay(5000);
     myservo.write(0);
   }
@@ -105,7 +113,7 @@ void garageDoor() {
  * @returns
  */
 void checkCharge() {
-//    logEvent("");
+//    logEvent("Check lightSystem status");
 }
 
 /*
@@ -118,7 +126,7 @@ void lightSensor() {
 }
 
 /*
- * A RV24AF-10-40R1-B10K potentiometer controls the speed of the DC motor.
+ * A RV24AF-10-40R1-B10K potentiometer controls the speed of the 4.5-9V 130 size hobby DC motor.
  * @params
  * @returns
  */
@@ -132,7 +140,25 @@ void speedControl() {
  * @returns
  */
 void breakAlarm() {  
-  
+  // generate 10-microsecond pulse to TRIG pin
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  // measure duration of pulse from ECHO pin
+int  durationUs = pulseIn(echoPin, HIGH);
+  // calculate the distance
+int  distanceCm = 0.017 * durationUs;
+  // 100 = 1 meter from back wall of garage
+  if(distanceCm <= 100)
+    digitalWrite(buzzerPin, HIGH); // turn on Piezo Buzzer
+  else
+    digitalWrite(buzzerPin, LOW);  // turn off Piezo Buzzer
+
+  // print the value to Serial Monitor
+  Serial.print("distance: ");
+  Serial.print(distanceCm);
+  Serial.println(" cm");
 }
 
 /*
@@ -141,14 +167,5 @@ void breakAlarm() {
  * @returns
  */
 void garageTrigger() {  
-  
-}
-
-/*
- * A DC 3v Yl-99 crash switch will trigger the servo to close the garage door.
- * @params
- * @returns
- */
-void carshSwitch() {  
   
 }
